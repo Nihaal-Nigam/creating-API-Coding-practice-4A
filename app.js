@@ -34,7 +34,15 @@ app.get("/players/", async (request, response) => {
     order by player_id
     `;
   const allPlayersList = await db.all(playerDetails);
-  return response.send(allPlayersList);
+  console.log(allPlayersList);
+  const responseObject = (allPlayersList) => {
+    return {
+      playerId: allPlayersList.player_id,
+      playerName: allPlayersList.player_name,
+      jerseyNumber: allPlayersList.jersey_number,
+      role: allPlayersList.role,
+    };
+  };
 });
 
 //Add New Player
@@ -63,7 +71,15 @@ app.get("/players/:playerId/", async (request, response) => {
     where player_id = ${playerId}
     `;
   const myPlayer = await db.get(playerDetails);
-  return response.send(myPlayer);
+  console.log(myPlayer);
+  const responseObject = (myPlayer) => {
+    return {
+      playerId: myPlayer.player_id,
+      playerName: myPlayer.player_name,
+      jerseyNumber: myPlayer.jersey_number,
+      role: myPlayer.role,
+    };
+  };
 });
 
 //Update Player Details
